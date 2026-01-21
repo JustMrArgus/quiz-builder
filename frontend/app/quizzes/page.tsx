@@ -93,7 +93,7 @@ export default function QuizzesPage() {
                         className="opacity-0 group-hover:opacity-100 transition-opacity text-muted-foreground hover:text-destructive"
                         disabled={deleteQuizMutation.isPending}
                       >
-                        <Trash2 className="h-4 w-4" />
+                        <Trash2 className="h-4 w-4 cursor-pointer" />
                       </Button>
                     </AlertDialogTrigger>
                     <AlertDialogContent>

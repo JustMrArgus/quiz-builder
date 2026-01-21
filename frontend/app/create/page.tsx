@@ -153,9 +153,7 @@ export default function CreateQuizPage() {
         })),
       });
       router.push(`/quizzes/${quiz.id}`);
-    } catch {
-      // Error is handled by the mutation
-    }
+    } catch {}
   };
 
   return (
@@ -166,7 +164,6 @@ export default function CreateQuizPage() {
 
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-          {/* Quiz Title */}
           <Card>
             <CardHeader>
               <CardTitle>Quiz Details</CardTitle>
@@ -191,7 +188,6 @@ export default function CreateQuizPage() {
             </CardContent>
           </Card>
 
-          {/* Questions */}
           <div className="space-y-6">
             <div className="flex justify-between items-center">
               <h2 className="text-xl font-semibold text-foreground">
@@ -218,13 +214,12 @@ export default function CreateQuizPage() {
                         onClick={() => remove(index)}
                         className="text-destructive hover:text-destructive"
                       >
-                        <Trash2 className="h-4 w-4" />
+                        <Trash2 className="h-4 w-4 cursor-pointer" />
                       </Button>
                     )}
                   </div>
                 </CardHeader>
                 <CardContent className="space-y-4">
-                  {/* Question Text */}
                   <FormField
                     control={form.control}
                     name={`questions.${index}.text`}
@@ -242,7 +237,6 @@ export default function CreateQuizPage() {
                     )}
                   />
 
-                  {/* Question Type */}
                   <div className="space-y-2">
                     <Label>Question Type</Label>
                     <Select
@@ -268,7 +262,6 @@ export default function CreateQuizPage() {
                     </Select>
                   </div>
 
-                  {/* Boolean Options */}
                   {watchQuestions[index]?.type === QuestionType.BOOLEAN && (
                     <div className="space-y-2">
                       <Label>Correct Answer</Label>
@@ -297,10 +290,9 @@ export default function CreateQuizPage() {
                     </div>
                   )}
 
-                  {/* Input Type */}
                   {watchQuestions[index]?.type === QuestionType.INPUT && (
                     <div className="space-y-2">
-                      <Label>Expected Answer (optional)</Label>
+                      <Label>Expected Answer</Label>
                       <Input
                         value={watchQuestions[index]?.correctAnswers?.[0] || ""}
                         onChange={(e) =>
@@ -313,7 +305,6 @@ export default function CreateQuizPage() {
                     </div>
                   )}
 
-                  {/* Checkbox Options */}
                   {watchQuestions[index]?.type === QuestionType.CHECKBOX && (
                     <div className="space-y-3">
                       <div className="flex justify-between items-center">
@@ -411,7 +402,6 @@ export default function CreateQuizPage() {
             </Card>
           )}
 
-          {/* Submit Button */}
           <div className="flex justify-end gap-4">
             <Button
               type="button"
