@@ -28,7 +28,6 @@ describe('Quiz API (e2e)', () => {
   });
 
   afterAll(async () => {
-    // Clean up and close connections
     await prisma.question.deleteMany();
     await prisma.quiz.deleteMany();
     await prisma.$disconnect();
@@ -36,7 +35,6 @@ describe('Quiz API (e2e)', () => {
   });
 
   beforeEach(async () => {
-    // Clean up database before each test
     await prisma.question.deleteMany();
     await prisma.quiz.deleteMany();
   });
@@ -212,7 +210,6 @@ describe('Quiz API (e2e)', () => {
     });
 
     it('should return all quizzes with question count', async () => {
-      // Create test quizzes
       await request(app.getHttpServer())
         .post('/api/quizzes')
         .send({
@@ -361,7 +358,6 @@ describe('Quiz API (e2e)', () => {
         .delete(`/api/quizzes/${quizId}`)
         .expect(200);
 
-      // Verify quiz is deleted
       await request(app.getHttpServer())
         .get(`/api/quizzes/${quizId}`)
         .expect(404);
@@ -389,7 +385,6 @@ describe('Quiz API (e2e)', () => {
 
       const quizId = createResponse.body.id;
 
-      // Count questions before delete
       const questionsBefore = await prisma.question.count({
         where: { quizId },
       });
@@ -399,7 +394,6 @@ describe('Quiz API (e2e)', () => {
         .delete(`/api/quizzes/${quizId}`)
         .expect(200);
 
-      // Verify questions are deleted (cascade)
       const questionsAfter = await prisma.question.count({ where: { quizId } });
       expect(questionsAfter).toBe(0);
     });
