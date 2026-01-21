@@ -90,10 +90,10 @@ export default function QuizzesPage() {
                       <Button
                         variant="ghost"
                         size="icon"
-                        className="opacity-0 group-hover:opacity-100 transition-opacity text-muted-foreground hover:text-destructive"
+                        className="opacity-0 group-hover:opacity-100 transition-opacity text-muted-foreground hover:text-destructive cursor-pointer"
                         disabled={deleteQuizMutation.isPending}
                       >
-                        <Trash2 className="h-4 w-4 cursor-pointer" />
+                        <Trash2 className="h-4 w-4" />
                       </Button>
                     </AlertDialogTrigger>
                     <AlertDialogContent>
@@ -108,7 +108,7 @@ export default function QuizzesPage() {
                         <AlertDialogCancel>Cancel</AlertDialogCancel>
                         <AlertDialogAction
                           onClick={() => handleDelete(quiz.id)}
-                          className="bg-destructive text-white text-destructive-foreground hover:bg-destructive/90"
+                          className="bg-destructive text-white hover:bg-destructive/90"
                         >
                           Delete
                         </AlertDialogAction>

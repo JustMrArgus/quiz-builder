@@ -59,6 +59,11 @@ jobs:
         env:
           DATABASE_URL: postgresql://postgres:postgres@localhost:5432/quiz_builder_test?schema=public
 
+      - name: Run E2E Tests
+        run: npm run test:e2e
+        env:
+          DATABASE_URL: postgresql://postgres:postgres@localhost:5432/quiz_builder_test?schema=public
+
       - name: Build
         run: npm run build
 

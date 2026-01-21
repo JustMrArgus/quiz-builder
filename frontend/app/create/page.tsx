@@ -35,12 +35,23 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 
-const questionSchema = z.object({
-  text: z.string().min(1, "Question text is required"),
-  type: z.nativeEnum(QuestionType),
-  options: z.array(z.string()).optional(),
-  correctAnswers: z.array(z.string()).optional(),
-});
+const questionSchema = z
+  .object({
+    text: z.string().min(1, "Question text is required"),
+    type: z.nativeEnum(QuestionType),
+    options: z.array(z.string()).optional(),
+    correctAnswers: z.array(z.string()).optional(),
+  })
+  .refine(
+    (data) => {
+      const answers = data.correctAnswers || [];
+      return answers.length > 0 && answers.some((a) => a.trim() !== "");
+    },
+    {
+      message: "At least one correct answer is required",
+      path: ["correctAnswers"],
+    },
+  );
 
 const quizSchema = z.object({
   title: z.string().min(1, "Quiz title is required"),
@@ -212,9 +223,9 @@ export default function CreateQuizPage() {
                         variant="ghost"
                         size="icon"
                         onClick={() => remove(index)}
-                        className="text-destructive hover:text-destructive"
+                        className="text-destructive hover:text-destructive cursor-pointer"
                       >
-                        <Trash2 className="h-4 w-4 cursor-pointer" />
+                        <Trash2 className="h-4 w-4 " />
                       </Button>
                     )}
                   </div>
@@ -377,6 +388,15 @@ export default function CreateQuizPage() {
                         )}
                       </div>
                     </div>
+                  )}
+
+                  {form.formState.errors.questions?.[index]?.correctAnswers && (
+                    <p className="text-destructive text-sm">
+                      {
+                        form.formState.errors.questions[index]?.correctAnswers
+                          ?.message
+                      }
+                    </p>
                   )}
                 </CardContent>
               </Card>
