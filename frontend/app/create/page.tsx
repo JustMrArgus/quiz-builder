@@ -340,7 +340,7 @@ export default function CreateQuizPage() {
                         {watchQuestions[index]?.options?.map(
                           (option, optIndex) => (
                             <div
-                              key={`${index}-opt-${optIndex}-${option}`}
+                              key={`${index}-opt-${optIndex}`}
                               className="flex items-center gap-2"
                             >
                               <Checkbox
