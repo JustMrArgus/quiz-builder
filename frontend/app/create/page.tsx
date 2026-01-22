@@ -111,9 +111,15 @@ export default function CreateQuizPage() {
 
   const addOption = (questionIndex: number) => {
     const currentOptions = watchQuestions[questionIndex]?.options || [];
+    let optionNum = currentOptions.length + 1;
+    let newOptionName = `Option ${optionNum}`;
+    while (currentOptions.includes(newOptionName)) {
+      optionNum++;
+      newOptionName = `Option ${optionNum}`;
+    }
     form.setValue(`questions.${questionIndex}.options`, [
       ...currentOptions,
-      `Option ${currentOptions.length + 1}`,
+      newOptionName,
     ]);
   };
 
@@ -334,7 +340,7 @@ export default function CreateQuizPage() {
                         {watchQuestions[index]?.options?.map(
                           (option, optIndex) => (
                             <div
-                              key={optIndex}
+                              key={`${index}-opt-${optIndex}-${option}`}
                               className="flex items-center gap-2"
                             >
                               <Checkbox
